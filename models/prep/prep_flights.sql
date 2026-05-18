@@ -1,4 +1,4 @@
-ITH flights_one_month AS (
+    WITH flights_one_month AS (
     SELECT * 
     FROM {{ref('staging_flights_one_month')}}
     ),
