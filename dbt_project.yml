@@ -46,3 +46,4 @@ models:
         # Applies to all files under models/mart/
     mart:
         materialized: table
+{{ config(materialized='view') }}
