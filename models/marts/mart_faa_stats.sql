@@ -66,7 +66,7 @@ flight_totals AS (
     FROM airport_flight_events
     GROUP BY faa
 
-),
+)
 
 SELECT
     a.faa,
