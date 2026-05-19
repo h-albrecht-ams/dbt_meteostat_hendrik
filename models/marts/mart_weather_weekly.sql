@@ -1,3 +1,10 @@
+WITH weather_daily AS (
+
+    SELECT *
+    FROM {{ ref('prep_weather_daily') }}
+
+),
+
 weekly_weather AS (
 
     SELECT
