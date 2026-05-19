@@ -37,7 +37,9 @@ airport_flight_events AS (
     SELECT
         origin AS faa,
         cancelled,
-        diverted
+        diverted,
+        tail_number,
+        airline
     FROM flights
 
     UNION ALL
@@ -45,7 +47,9 @@ airport_flight_events AS (
     SELECT
         dest AS faa,
         cancelled,
-        diverted
+        diverted,
+        tail_number,
+        airline
     FROM flights
 
 ),
@@ -66,6 +70,17 @@ flight_totals AS (
     FROM airport_flight_events
     GROUP BY faa
 
+),
+
+aircraft_airline_stats AS (
+
+    SELECT
+        faa,
+        COUNT(DISTINCT tail_number) AS unique_airplanes,
+        COUNT(DISTINCT airline) AS unique_airlines
+    FROM airport_flight_events
+    GROUP BY faa
+
 )
 
 SELECT
@@ -78,7 +93,9 @@ SELECT
     f.planned_flights,
     f.cancelled_flights,
     f.diverted_flights,
-    f.occurred_flights
+    f.occurred_flights,
+    aa.unique_airplanes,
+    aa.unique_airlines
 FROM airports a
 LEFT JOIN departure_stats d
     ON a.faa = d.faa
@@ -86,3 +103,5 @@ LEFT JOIN arrival_stats ar
     ON a.faa = ar.faa
 LEFT JOIN flight_totals f
     ON a.faa = f.faa
+LEFT JOIN aircraft_airline_stats aa
+    ON a.faa = aa.faa
