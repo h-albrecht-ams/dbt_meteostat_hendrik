@@ -47,3 +47,6 @@ models:
     mart:
         materialized: table
         
+        # Applies to all files under models/northwind/
+    northwind:
+        +materialized: table
