@@ -37,8 +37,8 @@ joined AS (
         od.quantity,
         od.discount,
         od.unit_price * od.quantity * (1 - od.discount) as revenue,
-        EXTRACT(YEAR FROM o.order_date) AS order_year,
-        EXTRACT(MONTH FROM o.order_date) AS order_month
+        EXTRACT(YEAR FROM o.order_date)::INT AS order_year,
+        EXTRACT(MONTH FROM o.order_date)::INT AS order_month
 
     FROM orders o
     JOIN order_details od
