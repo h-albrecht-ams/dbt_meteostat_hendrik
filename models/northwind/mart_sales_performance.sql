@@ -7,12 +7,12 @@ WITH sales AS (
 
 
 SELECT 
-    order_year,
-    order_month,
+    order_year::INT as order_year,
+    order_month::INT as order_month,
     category_name,
-    SUM(revenue) AS total_revenue,
+    ROUND(SUM(revenue), 2) AS total_revenue,
     COUNT(DISTINCT order_id) AS total_orders,
-    SUM(revenue) / COUNT(DISTINCT order_id) AS avg_revenue_per_order
+    ROUND(SUM(revenue) / COUNT(DISTINCT order_id), 2) AS avg_revenue_per_order
 FROM sales
 GROUP BY
     order_year,
